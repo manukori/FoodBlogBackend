@@ -21,6 +21,10 @@ app.use(cors())
 
 //Signin
 app.post('/signin', (req, res) => {
+    if(!req.body.email || !req.body.password) {
+        res.send({message : "Email and password are required"})
+        return;
+    }
     User.findOne({ email: req.body.email }).then((userData) => {
         if (userData) {
             if (req.body.password === userData.password) {
